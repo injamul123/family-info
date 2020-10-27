@@ -6,6 +6,7 @@ if (isset($_POST['submit'])) {
     $error_msg = '';
     $success_msg = '';
 
+    //validation
     if (empty($_POST['family-member'])) {
         $error = "Please enter family member";
     } else if (empty($_POST['age'])) {
@@ -21,10 +22,12 @@ if (isset($_POST['submit'])) {
         $occupation = $con->real_escape_string($_POST['occupation']);
         $work_place = $con->real_escape_string($_POST['work-place']);
 
+        //check for duplicate values
+
         $chkSql = "SELECT * FROM family WHERE family_members = '$family_member'";
 
         $res = $con->query($chkSql);
-        // print_r($res->num_rows);die;
+
         if ($res->num_rows > 0) {
             $error_msg = "Family member exists";
 
